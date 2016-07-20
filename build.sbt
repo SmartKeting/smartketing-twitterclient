@@ -1,5 +1,5 @@
 
-// SmartKeting - TwitterClient
+// Smartketing - TwitterClient
 
 name := "smartketing-twitterclient"
 version := "1.0"
