@@ -10,11 +10,7 @@ import twitter4j.Status
   */
 object App {
 
-  //define tasks as array
-  private val tasks = List(
-    new Task(Array("apple")),
-    new Task(Array("pear"))
-  )
+
 
   def main(args: Array[String]): Unit = {
 
@@ -29,7 +25,6 @@ object App {
     //lets go!!
     appContext.start
 
-
     //appContext.stop
 
   }
@@ -41,22 +36,25 @@ object App {
     * @param rdd
     */
   def doTheProcess(rdd:RDD[Status]) = {
-    for(task <- updatedTasks(tasks))
+    for(task <- updatedTasks())
       task.process(rdd)
   }
 
 
   /**
     * Get a updated list of registered tasks
-    *
-    * @param tasks
     */
-  def updatedTasks(tasks:List[Task]): List[Task] = {
+  def updatedTasks(): List[Task] = {
     //TODO : ask to db and update tasks....
-    val newTask = new Task(Array("keyword"))
+    //define tasks as array
+    val tasks = List(
+      new Task(Array("apple"))
+    )
 
+    //val newTask = new Task(Array("keyword"))
+    //tasks :+ newTask
 
-    tasks :+ newTask
+    tasks
   }
 
 
