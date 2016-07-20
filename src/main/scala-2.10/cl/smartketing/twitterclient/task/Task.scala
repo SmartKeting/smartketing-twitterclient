@@ -19,7 +19,7 @@ object Task {
   def process(rdd:RDD[Status]) = {
     rdd
       //enable distributed cache
-      //.cache()
+      .cache()
 
       //filter by language
       .filter(s => s.getLang.matches("es") && !s.isRetweet)
