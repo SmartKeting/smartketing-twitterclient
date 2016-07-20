@@ -14,13 +14,16 @@ object App {
 
   def main(args: Array[String]): Unit = {
 
+    //define the params
+    val params = if(args.length>0) args else Array("dynamodb","aws")
+
     //init app and streaming context
     val appContext = new AppContext()
 
     //get streaming ctx and set operations
     appContext
-        .getTwitterStream(Array("apple"))
-        .foreachRDD(doTheProcess(_))
+        .getTwitterStream(params)
+        .foreachRDD(Task.process(_))
 
     //lets go!!
     appContext.start
@@ -29,33 +32,6 @@ object App {
 
   }
 
-
-  /**
-    * run process for every task.
-    *
-    * @param rdd
-    */
-  def doTheProcess(rdd:RDD[Status]) = {
-    for(task <- updatedTasks())
-      task.process(rdd)
-  }
-
-
-  /**
-    * Get a updated list of registered tasks
-    */
-  def updatedTasks(): List[Task] = {
-    //TODO : ask to db and update tasks....
-    //define tasks as array
-    val tasks = List(
-      new Task(Array("apple"))
-    )
-
-    //val newTask = new Task(Array("keyword"))
-    //tasks :+ newTask
-
-    tasks
-  }
 
 
 }

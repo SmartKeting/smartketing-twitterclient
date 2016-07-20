@@ -9,23 +9,25 @@ import twitter4j.Status
 /**
   * @author daniel
   */
-class Task (
-             private val keywords: Array[String]
-           )
-{
+object Task {
 
+  /**
+    *
+    * @param rdd
+    * @return
+    */
   def process(rdd:RDD[Status]) = {
     rdd
       //enable distributed cache
-      .cache()
+      //.cache()
 
       //filter by language
       .filter(s => s.getLang.matches("es") && !s.isRetweet)
 
-      //4 each partition..
+      //4each partition..
       .foreachPartition(
 
-      //4 each tweet...
+      //4each tweet...
         _.foreach(status => {
 
           //create the domain object
